@@ -21,11 +21,13 @@
     },
     created() {
       if (sessionStorage.getItem("store") ) {
+      //页面每次刷新，重新拿取vuex中的数据，这样就可以实现vuex在页面刷新后，数据不丢失等问题
         this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
         // sessionStorage.removeItem("store")
       }
 
         window.addEventListener("beforeunload",()=>{
+        //将vuex中的数据存放在sessionStorage中
           sessionStorage.setItem("store",JSON.stringify(this.$store.state))
         })
     }
